@@ -1,0 +1,17 @@
+.biggestDiv {
+  display: flex;
+}
+.CandelaDiv {
+  width: 30%;
+  height: 100vh;
+  background-color: aliceblue;
+}
+.SarrDiv {
+  width: 70%;
+  height: 100vh;
+  background-color: black;
+}
+
+.CandelaDiv.isOpen {
+  width: 100%;
+}
