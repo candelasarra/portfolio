@@ -1,0 +1,26 @@
+.Portfolio-holder-div {
+  display: flex;
+  justify-content: flex-end;
+  width: 80vw;
+  margin-top: 5%;
+  position: relative;
+}
+.Portfolio-RecipesImage {
+  width: 100%;
+  margin-right: 37px;
+}
+.Portfolio-DisplayHtml-tech-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 37px;
+}
+.Link-explanation-div {
+  position: relative;
+  top: 133px;
+  background-color: #1f1f1fa6;
+  display: flex;
+  left: 100px;
+  height: min-content;
+  flex-direction: column-reverse;
+}

@@ -2,15 +2,13 @@ import React from 'react';
 import HomeScreen from './HomeScreen';
 import HSButtons from './HSButtons';
 import { useButtonClicked } from '../Hooks/Hooks';
+import '../CSSfiles/Main.css';
 const Main = () => {
   const { onButtonClick, buttonClicked } = useButtonClicked(null);
 
   return (
-    <div>
-      <div>
-        {buttonClicked !== null && buttonClicked !== 'back' && (
-          <HSButtons value="back" label="Back" onButtonClick={onButtonClick} />
-        )}
+    <div className="Main-div">
+      <div className="HSButtons-div-three">
         {buttonClicked !== 'portfolio' && (
           <HSButtons
             value="portfolio"
@@ -31,6 +29,11 @@ const Main = () => {
             label="Contact Me"
             onButtonClick={onButtonClick}
           />
+        )}
+      </div>
+      <div className="HSButtons-div-back">
+        {buttonClicked !== null && buttonClicked !== 'back' && (
+          <HSButtons value="back" label="Back" onButtonClick={onButtonClick} />
         )}
       </div>
       <HomeScreen buttonClicked={buttonClicked} />

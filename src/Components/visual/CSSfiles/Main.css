@@ -1,0 +1,21 @@
+.Main-div {
+  position: relative;
+  height: 100vh;
+  background-color: black;
+}
+
+.HSButtons-div-three {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  top: 50%;
+  height: 200px;
+  justify-content: space-between;
+}
+.HSButtons-div-back {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
