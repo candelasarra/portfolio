@@ -6,6 +6,7 @@ export function useButtonClicked(initialState) {
   return {
     buttonClicked,
     onButtonClick: e => {
+      console.log(buttonClicked);
       setButtonClicked(e.currentTarget.value);
     }
   };

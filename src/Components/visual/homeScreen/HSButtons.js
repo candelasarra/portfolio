@@ -5,7 +5,6 @@ const HSButtons = props => {
   return (
     <Button
       key={props.value}
-      variant="outlined"
       size="small"
       color="primary"
       onClick={props.onButtonClick}

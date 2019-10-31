@@ -1,4 +1,7 @@
-.holdsHSButtons {
-  display: flex;
-  justify-content: center;
+.HomeScreen-holderDiv {
+  height: 100%;
+}
+
+.HomeScreen-ToRenderComponent {
+  margin-top: 5%;
 }

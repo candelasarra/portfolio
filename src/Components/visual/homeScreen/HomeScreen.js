@@ -3,15 +3,23 @@ import '../homeScreen/HomeScreen.css';
 import Portfolio from './Portfolio';
 import ContactMe from './ContactMe';
 import AboutMe from './AboutMe';
+import { Typography } from '@material-ui/core';
+import { useButtonClicked } from '../Hooks/Hooks';
+import HSButtons from './HSButtons';
 
 const HomeScreen = ({ buttonClicked }) => {
-  const nullCaseRender = <h1>Hi homescreen on null</h1>;
+  let toBeRendered = null;
+  if (buttonClicked === 'portfolio') {
+    toBeRendered = <Portfolio />;
+  } else if (buttonClicked === 'aboutme') {
+    toBeRendered = <AboutMe />;
+  } else if (buttonClicked === 'contactme') {
+    toBeRendered = <ContactMe />;
+  }
+
   return (
-    <div className="holdsHSButtons">
-      {buttonClicked === 'portfolio' && <Portfolio />}
-      {buttonClicked === 'aboutme' && <AboutMe />}
-      {buttonClicked === 'contactme' && <ContactMe />}
-      {(buttonClicked === null || buttonClicked === 'back') && nullCaseRender}
+    <div className="HomeScreen-holderDiv">
+      <div className="HomeScreen-ToRenderComponent">{toBeRendered}</div>
     </div>
   );
 };

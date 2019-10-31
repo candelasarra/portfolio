@@ -1,21 +1,29 @@
 .Main-div {
-  position: relative;
+  display: flex;
+  width: auto;
   height: 100vh;
-  background-color: black;
+}
+.Main-leftDiv {
+  width: 7%;
+  background: #ff7067;
+}
+.Main-mainDiv {
+  width: 86%;
+  background: #212121;
+  min-height: 100vh;
+  overflow: scroll;
 }
 
-.HSButtons-div-three {
-  flex-direction: column;
-  display: flex;
-  align-items: flex-start;
-  position: absolute;
-  top: 50%;
-  height: 200px;
-  justify-content: space-between;
+.Main-rightDiv {
+  width: 7%;
+  background: #ff7067;
 }
-.HSButtons-div-back {
-  flex-grow: 1;
+.Main-footer {
+  height: 100px;
+}
+.Main-header {
+  height: 150px;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
+  align-items: flex-end;
+  justify-content: center;
 }
