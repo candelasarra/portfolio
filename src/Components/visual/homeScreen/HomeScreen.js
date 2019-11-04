@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../homeScreen/HomeScreen.css';
 import Portfolio from './Portfolio';
 import ContactMe from './ContactMe';
 import AboutMe from './AboutMe';
-import { Typography } from '@material-ui/core';
-import { useButtonClicked } from '../Hooks/Hooks';
-import HSButtons from './HSButtons';
+import { Route } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const HomeScreen = ({ buttonClicked }) => {
-  let toBeRendered = null;
-  if (buttonClicked === 'portfolio') {
-    toBeRendered = <Portfolio />;
-  } else if (buttonClicked === 'aboutme') {
-    toBeRendered = <AboutMe />;
-  } else if (buttonClicked === 'contactme') {
-    toBeRendered = <ContactMe />;
-  }
+  let history = useHistory();
 
+  useEffect(() => {
+    if (buttonClicked !== undefined) history.push('/' + buttonClicked);
+    console.log('use effect in hs ');
+  }, [buttonClicked, history]);
   return (
     <div className="HomeScreen-holderDiv">
-      <div className="HomeScreen-ToRenderComponent">{toBeRendered}</div>
+      <div className="HomeScreen-ToRenderComponent">
+        <Route path="/Portfolio" component={Portfolio} />
+        <Route path="/AboutMe" component={AboutMe} />
+        <Route path="/ContactMe" component={ContactMe} />
+      </div>
     </div>
   );
 };

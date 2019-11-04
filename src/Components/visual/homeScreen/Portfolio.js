@@ -1,6 +1,4 @@
 import React from 'react';
-import DisplayHtmlInDiv from '../../logic/DisplayHtmlInDiv';
-import { Typography } from '@material-ui/core';
 import '../CSSfiles/Portfolio.css';
 import TheRecipesImage from '../images/TheRecipesImage.png';
 import { ReactComponent as Blob1 } from '../images/blob-shape.svg';

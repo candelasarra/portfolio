@@ -1,6 +1,6 @@
 .Portfolio-RecipesImage-div {
   width: 60%;
-  background: #920000;
+  background: #ff7067;
   height: min-content;
   position: relative;
 }
@@ -8,6 +8,9 @@
   display: block;
   opacity: 0.6;
   width: 100%;
+}
+.Portfolio-RecipesImage:hover {
+  opacity: unset;
 }
 .Portfolio-holder-div {
   display: flex;

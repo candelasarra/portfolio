@@ -4,12 +4,13 @@ import { useButtonClicked } from '../Hooks/Hooks';
 import '../CSSfiles/Main.css';
 import { Typography } from '@material-ui/core';
 import Header from './Header';
+import HSButtons from './HSButtons';
 
 const Main = () => {
-  const { onButtonClick, buttonClicked } = useButtonClicked('aboutme');
+  const { onButtonClick, buttonClicked } = useButtonClicked();
   const [obj, setObject] = useState(null);
   useEffect(() => {
-    const headerValues = ['portfolio', 'aboutme', 'contactme'];
+    const headerValues = ['Portfolio', 'AboutMe', 'ContactMe'];
     const obj = {};
     //creates object with left and right values of each in array
     const sidesValue = arr => {
@@ -35,7 +36,10 @@ const Main = () => {
     sidesValue(headerValues);
     setObject(obj);
   }, []);
-  console.log(obj);
+  const rightDivComponent =
+    buttonClicked && obj ? obj[buttonClicked].right : null;
+  const leftDivComponent =
+    buttonClicked && obj ? obj[buttonClicked].left : null;
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className="Main-header">
@@ -43,17 +47,26 @@ const Main = () => {
       </div>
       <div className="Main-div">
         <div className="Main-leftDiv">
-          <Typography>{obj ? obj[buttonClicked].left : null}</Typography>
+          {leftDivComponent === null ? null : (
+            <HSButtons
+              label={leftDivComponent}
+              value={leftDivComponent}
+              onClick={onButtonClick}
+            />
+          )}
         </div>
         <div className="Main-mainDiv">
           <HomeScreen buttonClicked={buttonClicked} />
         </div>
         <div className="Main-rightDiv">
-          <Typography>{obj ? obj[buttonClicked].right : null}</Typography>
+          {rightDivComponent === null ? null : (
+            <HSButtons
+              label={rightDivComponent}
+              value={rightDivComponent}
+              onClick={onButtonClick}
+            />
+          )}
         </div>
-      </div>
-      <div className="Main-footer">
-        <Typography>footer</Typography>
       </div>
     </div>
   );
