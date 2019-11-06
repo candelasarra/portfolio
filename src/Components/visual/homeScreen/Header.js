@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HSButtons from './HSButtons';
 import '../CSSfiles/Header.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { ReactComponent as Candela } from '../images/cand.svg';
 import { ReactComponent as Sarrab } from '../images/sarrab.svg';
+import { useSpring, animated, config } from 'react-spring';
 const useStyles = makeStyles({
   HeaderButtonRoot: {
     textTransform: 'none'
@@ -14,12 +15,25 @@ const useStyles = makeStyles({
 });
 
 const Header = ({ onButtonClick }) => {
+  const [props, set, stop] = useSpring(() => ({
+    left: '400px',
+    position: 'relative',
+    config: { mass: 1, tension: 250, friction: 3 }
+  }));
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+  set({ left: loaded ? '0px' : '400px' });
+
   const classes = useStyles();
   return (
     <div className="Header-mainDiv">
-      <div>
+      <div className="Header-LogosDiv">
         <Candela />
-        <Sarrab />
+        <animated.div style={props}>
+          <Sarrab />
+        </animated.div>
       </div>
       <div className="Header-holdsButtonsDiv">
         <HSButtons

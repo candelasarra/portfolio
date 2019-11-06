@@ -1,22 +1,25 @@
 .Main-div {
   display: flex;
   width: auto;
-  height: 100vh;
+  background: #212121;
 }
 .Main-leftDiv {
   width: 7%;
-  background: #ff7067;
+  position: sticky;
+  top: 0px;
+  height: 100vh;
 }
 .Main-mainDiv {
   width: 86%;
-  background: #212121;
+
   min-height: 100vh;
-  height: 100%;
 }
 
 .Main-rightDiv {
   width: 7%;
-  background: #ff7067;
+  position: sticky;
+  top: 0px;
+  height: 100vh;
 }
 .Main-footer {
   height: 100px;
