@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import HomeScreen from './HomeScreen';
 import { useButtonClicked } from '../Hooks/Hooks';
 import '../CSSfiles/Main.css';
-import { Typography } from '@material-ui/core';
 import Header from './Header';
 import HSButtons from './HSButtons';
 

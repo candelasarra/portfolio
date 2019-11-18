@@ -12,7 +12,7 @@
 .Main-mainDiv {
   width: 86%;
 
-  min-height: 100vh;
+  min-height: 150vh;
 }
 
 .Main-rightDiv {
@@ -25,9 +25,10 @@
   height: 100px;
 }
 .Main-header {
-  height: 150px;
+  height: 180px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   background-color: #484848;
+  position: relative;
 }
