@@ -41,7 +41,12 @@ const Portfolio = () => {
   ];
   const projectsRender = projects.map((item, index) => {
     return (
-      <Grid container className={classes.mainGrid} justify="space-around">
+      <Grid
+        container
+        className={classes.mainGrid}
+        justify="space-around"
+        key={index}
+      >
         {item.blob}
         <Grid
           container
