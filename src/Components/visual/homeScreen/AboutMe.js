@@ -1,7 +1,11 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-
+import Draggable from '../../logic/Draggable';
 const AboutMe = () => {
-  return <Typography>Hi its about me</Typography>;
+  return (
+    <Draggable style={{ color: 'red' }}>
+      <Typography>Hi its about me</Typography>
+    </Draggable>
+  );
 };
 export default AboutMe;

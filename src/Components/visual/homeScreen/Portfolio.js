@@ -4,7 +4,7 @@ import TheRecipesImage from '../images/TheRecipesImage.png';
 import { ReactComponent as Blob1 } from '../images/blob-shape.svg';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Draggable from '../../logic/Draggable';
 const useStyles = makeStyles(theme => ({
   img: {
     display: 'block',
@@ -47,7 +47,7 @@ const Portfolio = () => {
         justify="space-around"
         key={index}
       >
-        {item.blob}
+        <Draggable>{item.blob}</Draggable>
         <Grid
           container
           item
@@ -56,12 +56,35 @@ const Portfolio = () => {
           xs={4}
         >
           <Grid item>{item.title}</Grid>
+
           <Grid item xs className={classes.GridExplanation}>
             {item.explanation}
           </Grid>
         </Grid>
-        <Grid container item className={classes.GridImage} xs={8}>
-          <img src={item.image} alt={item.title} className={classes.img} />
+        <Grid container item xs={8}>
+          <Grid style={{ position: 'relative' }}>icons</Grid>
+          <Grid item style={{ width: '80%' }}>
+            <Draggable>
+              <div
+                style={{
+                  backgroundColor: '#ff7067',
+                  width: '100%',
+                  position: 'relative',
+                  height: 'min-content'
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={classes.img}
+                  draggable="false"
+                />
+              </div>
+            </Draggable>
+          </Grid>
+          <Grid item style={{ position: 'relative' }}>
+            technology
+          </Grid>
         </Grid>
       </Grid>
     );

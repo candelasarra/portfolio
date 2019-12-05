@@ -1,0 +1,34 @@
+        <HSButtons
+          label="Portfolio"
+          value="Portfolio"
+          onClick={onButtonClick}
+          classes={{
+            root: classes.HeaderButtonRoot,
+            label: classes.HeaderButtonLabel
+          }}
+          size="small"
+        />
+        <HSButtons
+          label="About Me"
+          value="AboutMe"
+          onClick={onButtonClick}
+          classes={{
+            root: classes.HeaderButtonRoot,
+            label: classes.HeaderButtonLabel
+          }}
+          size="small"
+        />
+        <HSButtons
+          label="Contact Me"
+          value="ContactMe"
+          onClick={onButtonClick}
+          classes={{
+            root: classes.HeaderButtonRoot,
+            label: classes.HeaderButtonLabel
+          }}
+          size="small"
+        />
+
+
+                  (viewportLeft.current + boxLeft.current) +
+          viewportLeft.current
