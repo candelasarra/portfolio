@@ -33,7 +33,11 @@ const Portfolio = () => {
 
   const projects = [
     {
-      blob: <Blob1 />,
+      blob: (
+        <Draggable classSelector="blob">
+          <Blob1 />
+        </Draggable>
+      ),
       explanation: 'explanation',
       image: TheRecipesImage,
       title: 'Recipes Website'
@@ -47,7 +51,7 @@ const Portfolio = () => {
         justify="space-around"
         key={index}
       >
-        <Draggable>{item.blob}</Draggable>
+        {item.blob}
         <Grid
           container
           item
@@ -55,7 +59,9 @@ const Portfolio = () => {
           direction="column"
           xs={4}
         >
-          <Grid item>{item.title}</Grid>
+          <Grid item>
+            <Draggable>{item.title}</Draggable>
+          </Grid>
 
           <Grid item xs className={classes.GridExplanation}>
             {item.explanation}
@@ -64,7 +70,7 @@ const Portfolio = () => {
         <Grid container item xs={8}>
           <Grid style={{ position: 'relative' }}>icons</Grid>
           <Grid item style={{ width: '80%' }}>
-            <Draggable>
+            <Draggable classSelector={'image' + index}>
               <div
                 style={{
                   backgroundColor: '#ff7067',

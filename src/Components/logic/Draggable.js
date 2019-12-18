@@ -1,108 +1,116 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const Draggable = ({ style, children }) => {
-  const [top, setTop] = useState(0);
-  const [left, setLeft] = useState(0);
-  const [grabbing, setGrabbing] = useState(false);
-  const currentPos = useRef(0);
-  const originalCenterPos = useRef(0);
-  const currentXdiff = useRef(0);
-  const centerX = useRef(0);
-  const centerY = useRef(0);
-  const windowW = useRef(0);
-  const windowH = useRef(0);
-  const prevWindW = useRef(0);
-  const prevWindH = useRef(0);
+import interact from 'interactjs';
 
-  const lenghtDiff = prevWindW.current - windowW.current;
-  const heightDiff = prevWindH.current - windowH.current;
-  console.log(windowH.current, prevWindH);
-  useEffect(() => {
-    prevWindH.current = window.innerHeight;
-    prevWindW.current = window.innerWidth;
-    windowW.current = window.innerWidth;
-    windowH.current = window.innerHeight;
-  }, []);
+const Draggable = ({ style, classSelector, children }) => {
+  const zIndex = useRef(1);
+  const ref = useRef(false);
 
   useEffect(() => {
-    if (
-      windowW.current !== window.innerWidth ||
-      windowH.current !== window.innerHeight
-    ) {
-      prevWindH.current = windowH.current;
-      prevWindW.current = windowW.current;
-      windowW.current = window.innerWidth;
-      windowH.current = window.innerHeight;
-    }
-    console.log('inside useeffetc');
-  }, [grabbing]);
+    interact('.' + classSelector)
+      .draggable({
+        // enable inertial throwing
+        inertia: true,
+        // keep the element within the area of it's parent
+        modifiers: [
+          interact.modifiers.restrictRect({
+            restriction: '.Main-mainDiv',
+            endOnly: true
+          })
+        ],
+        // enable autoScroll
+        autoScroll: true,
+        onstart: dragStartListener,
 
-  /*useEffect(() => {
-    window.addEventListener('resize', handleR);
-    function handleR() {
-      originalCenterPos.current = 0;
-    }
-    return () => window.removeEventListener('resize', handleR);
-  }, []);
-*/
-  function handleMouseDown(e) {
-    const {
-      x,
-      y,
-      width,
-      height
-    } = e.currentTarget.childNodes[0].getBoundingClientRect();
-    const { pageX, pageY } = e;
-    console.log(lenghtDiff);
-    centerX.current = width / 2 + x + window.scrollX;
-    centerY.current = height / 2 + y + window.scrollY;
-    console.log(x + window.scrollX, pageX);
-    if (!originalCenterPos.current) {
-      currentPos.current = { x: pageX, y: pageY };
-      originalCenterPos.current = { x: centerX.current, y: centerY.current };
-    } else {
-      const xDiff = pageX - centerX.current;
-      const yDiff = pageY - centerY.current;
-      currentXdiff.current = xDiff;
-      const rX = originalCenterPos.current.x + xDiff;
-      const rY = originalCenterPos.current.y + yDiff;
-      currentPos.current = { x: rX, y: rY };
-    }
-    setGrabbing(true);
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  }
-  function handleMouseMove(e) {
-    const { pageX, pageY } = e;
-    const newTop = pageY - currentPos.current.y;
-    const newLeft = pageX - currentPos.current.x;
-    console.log(windowW.current, prevWindW.current, pageX);
-    setLeft(newLeft);
-    setTop(newTop);
-  }
+        // call this function on every dragmove event
+        onmove: dragMoveListener,
+        // call this function on every dragend event
+        onend: function() {
+          console.log('end');
+        }
+      })
+      .resizable({
+        edges: {
+          bottom: true,
+          right: true,
+          top: true,
+          left: true
+        },
+        modifiers: [
+          interact.modifiers.aspectRatio({
+            // make sure the width is always double the height
+            ratio: 'preserve',
+            // also restrict the size by nesting another modifier
+            modifiers: [
+              interact.modifiers.restrictSize({ max: '.Main-mainDiv' })
+            ]
+          })
+        ],
+        invert: 'reposition'
+      })
+      .on('resizemove', event => {
+        var target = event.target,
+          x = parseFloat(target.getAttribute('data-x')) || 0,
+          y = parseFloat(target.getAttribute('data-y')) || 0;
 
-  function handleMouseUp(e) {
-    setGrabbing(false);
-    window.removeEventListener('mousemove', handleMouseMove);
-    window.removeEventListener('mouseup', handleMouseUp);
-  }
+        var offsetHeight = target.offsetHeight;
+
+        // update the element's style
+        target.style.width = event.rect.width + 'px';
+        // target.style.height = event.rect.width * ratio + 'px';
+
+        offsetHeight -= target.offsetHeight;
+
+        if (event.edges.bottom) {
+          offsetHeight = 0;
+        }
+
+        // translate when resizing from top or left edges
+        x += event.deltaRect.left;
+        y += offsetHeight;
+
+        target.style.webkitTransform = target.style.transform =
+          'translate(' + x + 'px,' + y + 'px)';
+
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+      });
+    function dragMoveListener(event) {
+      var target = event.target;
+      // keep the dragged position in the data-x/data-y attributes
+
+      const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+      const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+      ref.current = event.dx;
+      // translate the element
+      target.style.webkitTransform = target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px)';
+
+      // update the posiion attributes
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    }
+    function dragStartListener(event) {
+      zIndex.current = zIndex.current + 1;
+      console.log(zIndex);
+      event.target.style.zIndex = zIndex.current;
+    }
+  }, [classSelector]);
 
   return (
     <div
-      id="holdingDiv"
-      onMouseDown={handleMouseDown}
+      className={classSelector}
       style={{
         ...style,
-        top: `${top}px`,
-        left: `${left}px`,
-        cursor: grabbing ? 'move' : 'default',
         display: 'inline-block',
         position: 'relative',
-        width: '100%'
+        width: '100%',
+        transform: 'translate(0px, 0px)'
       }}
     >
       {children}
     </div>
   );
 };
+
 export default Draggable;

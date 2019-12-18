@@ -40,7 +40,15 @@ const Main = () => {
   const leftDivComponent =
     buttonClicked && obj ? obj[buttonClicked].left : null;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div
+      className="mainDivAfterRoot"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        overflowX: 'hidden',
+        background: '#212121'
+      }}
+    >
       <div className="Main-header">
         <Header onButtonClick={onButtonClick} />
       </div>
