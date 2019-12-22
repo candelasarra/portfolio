@@ -1,5 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+export function useBiggestZIndex() {
+  const [zIndex, setZIndex] = useState(1);
+
+  return {
+    zIndex,
+    setZIndex
+  };
+}
+
 export function useButtonClicked(initialState) {
   const [buttonClicked, setButtonClicked] = useState(initialState);
 

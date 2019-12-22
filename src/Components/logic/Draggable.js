@@ -1,10 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import interact from 'interactjs';
 
-const Draggable = ({ style, classSelector, children }) => {
-  const zIndex = useRef(1);
-  const ref = useRef(false);
+const Draggable = ({
+  style,
+  classSelector,
+  children,
+  position,
+  zIndex,
+  setZIndex
+}) => {
+  const ref = useRef(null);
 
   useEffect(() => {
     interact('.' + classSelector)
@@ -50,14 +56,14 @@ const Draggable = ({ style, classSelector, children }) => {
       })
       .on('resizemove', event => {
         var target = event.target,
-          x = parseFloat(target.getAttribute('data-x')) || 0,
-          y = parseFloat(target.getAttribute('data-y')) || 0;
+          x = parseFloat(ref.current.getAttribute('data-x')) || 0,
+          y = parseFloat(ref.current.getAttribute('data-y')) || 0;
 
         var offsetHeight = target.offsetHeight;
 
         // update the element's style
         target.style.width = event.rect.width + 'px';
-        // target.style.height = event.rect.width * ratio + 'px';
+        target.style.height = event.rect.width * 1 + 'px';
 
         offsetHeight -= target.offsetHeight;
 
@@ -69,42 +75,44 @@ const Draggable = ({ style, classSelector, children }) => {
         x += event.deltaRect.left;
         y += offsetHeight;
 
-        target.style.webkitTransform = target.style.transform =
+        ref.current.style.webkitTransform = ref.current.style.transform =
           'translate(' + x + 'px,' + y + 'px)';
 
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
       });
     function dragMoveListener(event) {
-      var target = event.target;
+      if (ref.current === null) return;
+      let target = event.target;
       // keep the dragged position in the data-x/data-y attributes
 
-      const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-      const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-      ref.current = event.dx;
+      const x =
+        (parseFloat(ref.current.getAttribute('data-x')) || 0) + event.dx;
+      const y =
+        (parseFloat(ref.current.getAttribute('data-y')) || 0) + event.dy;
       // translate the element
-      target.style.webkitTransform = target.style.transform =
+      ref.current.style.webkitTransform = ref.current.style.transform =
         'translate(' + x + 'px, ' + y + 'px)';
 
       // update the posiion attributes
-      target.setAttribute('data-x', x);
-      target.setAttribute('data-y', y);
+      ref.current.setAttribute('data-x', x);
+      ref.current.setAttribute('data-y', y);
     }
     function dragStartListener(event) {
-      zIndex.current = zIndex.current + 1;
+      event.target.style.zIndex = zIndex + 1;
       console.log(zIndex);
-      event.target.style.zIndex = zIndex.current;
     }
   }, [classSelector]);
 
+  //if wrapping svg pass svg height in style object, also pass position
   return (
     <div
+      ref={ref}
       className={classSelector}
       style={{
         ...style,
         display: 'inline-block',
-        position: 'relative',
-        width: '100%',
+        position: `${position}`,
         transform: 'translate(0px, 0px)'
       }}
     >

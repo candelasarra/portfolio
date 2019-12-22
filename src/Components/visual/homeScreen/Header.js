@@ -15,6 +15,7 @@ import {
 } from 'react-spring';
 import { useInterval } from '../Hooks/Hooks';
 import { ReactComponent as BlobEleven } from '../images/BlobEleven.svg';
+import Draggable from '../../logic/useMousePosition';
 const useStyles = makeStyles({
   HeaderButtonRoot: {
     textTransform: 'none'
@@ -173,7 +174,6 @@ const Header = ({ onButtonClick }) => {
               </animated.div>
             )
         )}
-
         <animated.div style={Hprops} onClick={onBlobClick}>
           {blobState === false ? (
             <HeaderButtonBlob

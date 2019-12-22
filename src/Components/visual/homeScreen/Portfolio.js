@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import '../CSSfiles/Portfolio.css';
 import TheRecipesImage from '../images/TheRecipesImage.png';
 import { ReactComponent as Blob1 } from '../images/blob-shape.svg';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Draggable from '../../logic/Draggable';
+import { useBiggestZIndex } from '../Hooks/Hooks';
 const useStyles = makeStyles(theme => ({
   img: {
     display: 'block',
@@ -30,12 +31,19 @@ const useStyles = makeStyles(theme => ({
 
 const Portfolio = () => {
   const classes = useStyles();
+  const { zIndex, setZIndex } = useBiggestZIndex();
 
   const projects = [
     {
       blob: (
-        <Draggable classSelector="blob">
-          <Blob1 />
+        <Draggable
+          classSelector="blob"
+          position="absolute"
+          style={{ width: '500px', height: '500px' }}
+          zIndex={zIndex}
+          setZIndex={setZIndex}
+        >
+          <Blob1 id="blobb" />
         </Draggable>
       ),
       explanation: 'explanation',
@@ -43,6 +51,7 @@ const Portfolio = () => {
       title: 'Recipes Website'
     }
   ];
+
   const projectsRender = projects.map((item, index) => {
     return (
       <Grid
@@ -60,7 +69,7 @@ const Portfolio = () => {
           xs={4}
         >
           <Grid item>
-            <Draggable>{item.title}</Draggable>
+            <Draggable position="relative">{item.title}</Draggable>
           </Grid>
 
           <Grid item xs className={classes.GridExplanation}>
@@ -70,7 +79,12 @@ const Portfolio = () => {
         <Grid container item xs={8}>
           <Grid style={{ position: 'relative' }}>icons</Grid>
           <Grid item style={{ width: '80%' }}>
-            <Draggable classSelector={'image' + index}>
+            <Draggable
+              classSelector={'image' + index}
+              position="relative"
+              zIndex={zIndex}
+              setZIndex={setZIndex}
+            >
               <div
                 style={{
                   backgroundColor: '#ff7067',
