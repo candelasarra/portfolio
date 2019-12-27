@@ -1,17 +1,26 @@
-import React, { useEffect, useRef } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
+import { useSpring, animated, config } from 'react-spring';
 import interact from 'interactjs';
 
-const Draggable = ({
-  style,
-  classSelector,
-  children,
-  position,
-  zIndex,
-  setZIndex
-}) => {
+const Draggable = ({ style, classSelector, children, position }) => {
   const ref = useRef(null);
-
+  const [hover, setHover] = useState(false);
+  const ratioRef = useRef(null);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+  useEffect(() => {
+    if (loaded) {
+      ratioRef.current = ref.current.clientHeight / ref.current.clientWidth;
+      console.log(
+        ratioRef.current,
+        ref.current.clientHeight,
+        ref.current.clientHeight + 2,
+        ref.current.clientWidth
+      );
+    }
+  }, [loaded]);
   useEffect(() => {
     interact('.' + classSelector)
       .draggable({
@@ -55,18 +64,19 @@ const Draggable = ({
         invert: 'reposition'
       })
       .on('resizemove', event => {
-        var target = event.target,
-          x = parseFloat(ref.current.getAttribute('data-x')) || 0,
-          y = parseFloat(ref.current.getAttribute('data-y')) || 0;
+        console.log(event.rect.width);
+        let target = event.target;
+        let x = parseFloat(ref.current.getAttribute('data-x')) || 0;
+        let y = parseFloat(ref.current.getAttribute('data-y')) || 0;
 
-        var offsetHeight = target.offsetHeight;
-
+        let offsetHeight = ref.current.offsetHeight;
         // update the element's style
-        target.style.width = event.rect.width + 'px';
-        target.style.height = event.rect.width * 1 + 'px';
+        console.log(ratioRef.current);
+        ref.current.style.height =
+          ref.current.clientWidth * ratioRef.current - 10 + 'px';
+        ref.current.style.width = event.rect.width + 'px';
 
-        offsetHeight -= target.offsetHeight;
-
+        offsetHeight -= ref.current.offsetHeight;
         if (event.edges.bottom) {
           offsetHeight = 0;
         }
@@ -99,25 +109,47 @@ const Draggable = ({
       ref.current.setAttribute('data-y', y);
     }
     function dragStartListener(event) {
-      event.target.style.zIndex = zIndex + 1;
-      console.log(zIndex);
+      console.log('insidedragstartxs');
     }
   }, [classSelector]);
 
+  const [hoverStyle, setHoverStyle] = useSpring(() => ({
+    from: { border: '1px dashed transparent' },
+    config: config.slow
+  }));
+  function handleMouseOver() {
+    setHover(true);
+    setHoverStyle({ border: '1px dashed white' });
+  }
+  function handleMouseOut() {
+    setHover(false);
+    setHoverStyle({ border: '1px dashed transparent' });
+  }
   //if wrapping svg pass svg height in style object, also pass position
+  //        <Draggable
+  //classSelector="blob"
+  // position="absolute"
+  // style={{ width: '500px', height: '500px' }}
+  //>
   return (
-    <div
+    <animated.div
       ref={ref}
       className={classSelector}
       style={{
         ...style,
-        display: 'inline-block',
+        ...hoverStyle,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         position: `${position}`,
-        transform: 'translate(0px, 0px)'
+        transform: 'translate(0px, 0px)',
+        padding: '5px'
       }}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
       {children}
-    </div>
+    </animated.div>
   );
 };
 

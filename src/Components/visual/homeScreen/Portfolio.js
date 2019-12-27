@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../CSSfiles/Portfolio.css';
 import TheRecipesImage from '../images/TheRecipesImage.png';
 import { ReactComponent as Blob1 } from '../images/blob-shape.svg';
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 const Portfolio = () => {
   const classes = useStyles();
-  const { zIndex, setZIndex } = useBiggestZIndex();
+  const { zIndex, newZIndex } = useBiggestZIndex(1);
 
   const projects = [
     {
@@ -40,8 +40,6 @@ const Portfolio = () => {
           classSelector="blob"
           position="absolute"
           style={{ width: '500px', height: '500px' }}
-          zIndex={zIndex}
-          setZIndex={setZIndex}
         >
           <Blob1 id="blobb" />
         </Draggable>
@@ -69,7 +67,9 @@ const Portfolio = () => {
           xs={4}
         >
           <Grid item>
-            <Draggable position="relative">{item.title}</Draggable>
+            <Draggable position="relative" classSelector={item.title}>
+              {item.title}
+            </Draggable>
           </Grid>
 
           <Grid item xs className={classes.GridExplanation}>
@@ -79,12 +79,7 @@ const Portfolio = () => {
         <Grid container item xs={8}>
           <Grid style={{ position: 'relative' }}>icons</Grid>
           <Grid item style={{ width: '80%' }}>
-            <Draggable
-              classSelector={'image' + index}
-              position="relative"
-              zIndex={zIndex}
-              setZIndex={setZIndex}
-            >
+            <Draggable classSelector={'image' + index} position="relative">
               <div
                 style={{
                   backgroundColor: '#ff7067',
