@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Draggable from '../../logic/Draggable';
 import { useBiggestZIndex } from '../Hooks/Hooks';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import IconButton from '@material-ui/core/IconButton';
 const useStyles = makeStyles(theme => ({
   img: {
     display: 'block',
@@ -26,6 +28,9 @@ const useStyles = makeStyles(theme => ({
   GridExplanation: {},
   GridExTi: {
     width: 'fit-content'
+  },
+  GridImageTechIcons: {
+    flexDirection: 'column'
   }
 }));
 
@@ -39,17 +44,18 @@ const Portfolio = () => {
         <Draggable
           classSelector="blob"
           position="absolute"
-          style={{ width: '500px', height: '500px' }}
+          style={{ width: '500px', height: '500px', top: '-40px' }}
+          identifier="image"
         >
           <Blob1 id="blobb" />
         </Draggable>
       ),
       explanation: 'explanation',
       image: TheRecipesImage,
-      title: 'Recipes Website'
+      title: 'Recipes Website',
+      github: 'https://github.com/candelasarra/recipes'
     }
   ];
-
   const projectsRender = projects.map((item, index) => {
     return (
       <Grid
@@ -67,7 +73,12 @@ const Portfolio = () => {
           xs={4}
         >
           <Grid item>
-            <Draggable position="relative" classSelector={item.title}>
+            <Draggable
+              position="relative"
+              classSelector={'title' + index}
+              style={{}}
+              identifier="text"
+            >
               {item.title}
             </Draggable>
           </Grid>
@@ -76,10 +87,26 @@ const Portfolio = () => {
             {item.explanation}
           </Grid>
         </Grid>
-        <Grid container item xs={8}>
-          <Grid style={{ position: 'relative' }}>icons</Grid>
-          <Grid item style={{ width: '80%' }}>
-            <Draggable classSelector={'image' + index} position="relative">
+        <Grid container item xs={8} className={classes.GridImageTechIcons}>
+          <Grid
+            style={{
+              position: 'relative',
+              width: 'min-content',
+              alignSelf: 'flex-end'
+            }}
+          >
+            {item.github && (
+              <IconButton href={item.github} target="_blank">
+                <GitHubIcon />
+              </IconButton>
+            )}
+          </Grid>
+          <Grid item style={{ width: '80%', alignSelf: 'center' }}>
+            <Draggable
+              classSelector={'image' + index}
+              position="relative"
+              identifier="image"
+            >
               <div
                 style={{
                   backgroundColor: '#ff7067',
@@ -97,7 +124,14 @@ const Portfolio = () => {
               </div>
             </Draggable>
           </Grid>
-          <Grid item style={{ position: 'relative' }}>
+          <Grid
+            item
+            style={{
+              position: 'relative',
+              width: 'min-content',
+              alignSelf: 'center'
+            }}
+          >
             technology
           </Grid>
         </Grid>

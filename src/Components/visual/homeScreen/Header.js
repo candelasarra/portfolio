@@ -70,15 +70,18 @@ const Header = ({ onButtonClick }) => {
     ref: Href
   }));
 
-  useChain([
-    { current: Cref.current },
-    { current: Sref.current },
-    { current: Href.current }
-  ]);
+  useChain(
+    [
+      { current: Href.current },
+      { current: Cref.current },
+      { current: Sref.current }
+    ],
+    [0, 0.5, 0.5]
+  );
   if (ref.current === true) {
+    setH({ transform: 'scale(1)', bottom: '0px' });
     setC({ bottom: '0px', opacity: 1 });
     setS({ left: '0px', opacity: 1 });
-    setH({ transform: 'scale(1)', bottom: '0px' });
   }
 
   const blobElevenTransition = useTransition(blobState, null, {
