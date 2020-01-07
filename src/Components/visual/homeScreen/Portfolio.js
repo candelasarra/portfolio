@@ -5,9 +5,10 @@ import { ReactComponent as Blob1 } from '../images/blob-shape.svg';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Draggable from '../../logic/Draggable';
-import { useBiggestZIndex } from '../Hooks/Hooks';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import IconButton from '@material-ui/core/IconButton';
+import LaunchIcon from '@material-ui/icons/Launch';
+import Chip from '@material-ui/core/Chip';
 const useStyles = makeStyles(theme => ({
   img: {
     display: 'block',
@@ -36,7 +37,6 @@ const useStyles = makeStyles(theme => ({
 
 const Portfolio = () => {
   const classes = useStyles();
-  const { zIndex, newZIndex } = useBiggestZIndex(1);
 
   const projects = [
     {
@@ -50,10 +50,13 @@ const Portfolio = () => {
           <Blob1 id="blobb" />
         </Draggable>
       ),
-      explanation: 'explanation',
+      explanation:
+        'A cookbook website where I can store all my recipes, each with its own image. A recipes search for other websites is also included where visitors can find other recipes. I created this website to learn React, it has the ability to read, update, add and remove recipes if you are logged in.',
       image: TheRecipesImage,
-      title: 'Recipes Website',
-      github: 'https://github.com/candelasarra/recipes'
+      title: 'Recipes Website To Start With React (CRUD)',
+      github: 'https://github.com/candelasarra/recipes',
+      link: 'http://candelasrecipes.com',
+      technology: ['React', 'Firebase', 'Material-UI']
     }
   ];
   const projectsRender = projects.map((item, index) => {
@@ -79,7 +82,14 @@ const Portfolio = () => {
               style={{}}
               identifier="text"
             >
-              {item.title}
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                {item.title}
+              </a>
             </Draggable>
           </Grid>
 
@@ -92,12 +102,19 @@ const Portfolio = () => {
             style={{
               position: 'relative',
               width: 'min-content',
-              alignSelf: 'flex-end'
+              alignSelf: 'flex-end',
+              display: 'flex',
+              flexDirection: 'row'
             }}
           >
+            {item.link && (
+              <IconButton href={item.link} target="_blank">
+                <LaunchIcon style={{ color: 'pink' }} />
+              </IconButton>
+            )}
             {item.github && (
               <IconButton href={item.github} target="_blank">
-                <GitHubIcon />
+                <GitHubIcon style={{ color: 'pink' }} />
               </IconButton>
             )}
           </Grid>
@@ -129,10 +146,24 @@ const Portfolio = () => {
             style={{
               position: 'relative',
               width: 'min-content',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              display: 'flex',
+              flexDirection: 'row'
             }}
           >
-            technology
+            {item.technology.map(thing => (
+              <Draggable
+                classSelector={'chip' + thing}
+                identifier="text"
+                position="relative"
+              >
+                <Chip
+                  variant="outlined"
+                  label={thing}
+                  style={{ color: '#484848' }}
+                />
+              </Draggable>
+            ))}
           </Grid>
         </Grid>
       </Grid>

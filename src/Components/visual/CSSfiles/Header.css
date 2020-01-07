@@ -1,6 +1,6 @@
 .Header-holdsButtonsDiv {
   margin-bottom: 2%;
-  min-height: 60px;
+  min-height: 80px;
   min-width: 50px;
   display: flex;
 }
@@ -20,5 +20,5 @@
   flex-direction: column;
   width: min-content;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 7%;
 }

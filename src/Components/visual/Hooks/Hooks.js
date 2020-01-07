@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 export function useBiggestZIndex(initialVal) {
-  const [zIndex, setZIndex] = useState(initialVal);
+  const zIndex = useRef(initialVal);
 
   return {
     zIndex,
     newZIndex: () => {
-      setZIndex(zIndex => zIndex + 1);
+      zIndex.current = zIndex.current + 1;
       console.log(zIndex);
     }
   };

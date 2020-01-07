@@ -118,7 +118,13 @@ const Draggable = ({
       ref.current.setAttribute('data-y', y);
     }
     function dragStartListener(event) {
-      console.log('insidedragstartxs');
+      const maxZ = Array.from(document.querySelectorAll('body *'))
+        .map(a => parseFloat(window.getComputedStyle(a).zIndex))
+        .filter(a => !isNaN(a))
+        .sort()
+        .pop();
+
+      event.target.style.zIndex = maxZ + 1;
     }
   }, [classSelector, identifier]);
 
