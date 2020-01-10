@@ -14,7 +14,7 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: 'Lekton'
+    fontFamily: `'Lekton', sans-serif;`
   }
 });
 
