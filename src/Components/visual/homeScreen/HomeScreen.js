@@ -11,6 +11,9 @@ const HomeScreen = ({ buttonClicked }) => {
 
   useEffect(() => {
     if (buttonClicked !== undefined) history.push('/' + buttonClicked);
+    else {
+      history.push('/Portfolio');
+    }
     console.log('use effect in hs ');
   }, [buttonClicked, history]);
   return (

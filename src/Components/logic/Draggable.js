@@ -17,18 +17,12 @@ const Draggable = ({
   useEffect(() => {
     setLoaded(true);
   }, []);
+  function getHeightAndWidth() {
+    console.log(ref.current.offsetHeight);
+  }
+
   useEffect(() => {
-    if (loaded) {
-      ratioRef.current = ref.current.clientHeight / ref.current.clientWidth;
-      console.log(
-        ratioRef.current,
-        ref.current.clientHeight,
-        ref.current.clientHeight + 2,
-        ref.current.clientWidth
-      );
-    }
-  }, [loaded]);
-  useEffect(() => {
+    console.log(ref);
     interact('.' + classSelector).draggable({
       // enable inertial throwing
       inertia: true,
@@ -72,18 +66,17 @@ const Draggable = ({
           invert: 'reposition'
         })
         .on('resizemove', event => {
-          console.log(event.rect.width);
+          ratioRef.current = event.rect.height / event.rect.width;
           let target = event.target;
           let x = parseFloat(ref.current.getAttribute('data-x')) || 0;
           let y = parseFloat(ref.current.getAttribute('data-y')) || 0;
 
           let offsetHeight = ref.current.offsetHeight;
           // update the element's style
-          console.log(ratioRef.current);
-          ref.current.style.height =
-            ref.current.clientWidth * ratioRef.current - 10 + 'px';
+          console.log(ratioRef.current, ref);
+          ref.current.style.height = event.rect.width * ratioRef.current + 'px';
           ref.current.style.width = event.rect.width + 'px';
-
+          console.log(event.rect.width, event.rect.height);
           offsetHeight -= ref.current.offsetHeight;
           if (event.edges.bottom) {
             offsetHeight = 0;
@@ -100,6 +93,7 @@ const Draggable = ({
           target.setAttribute('data-y', y);
         });
     }
+
     function dragMoveListener(event) {
       if (ref.current === null) return;
       let target = event.target;
@@ -123,7 +117,6 @@ const Draggable = ({
         .filter(a => !isNaN(a))
         .sort()
         .pop();
-
       event.target.style.zIndex = maxZ + 1;
     }
   }, [classSelector, identifier]);
@@ -144,10 +137,11 @@ const Draggable = ({
     setHover(false);
   }
   //if wrapping svg pass svg height in style object, also pass position
-  //        <Draggable
-  //classSelector="blob"
-  // position="absolute"
-  // style={{ width: '500px', height: '500px' }}
+  // <Draggable
+  // position="relative"
+  // classSelector={'title' + index}
+  // style={{height: 500}}
+  // identifier="text"
   //>
   return (
     <animated.div
@@ -166,6 +160,7 @@ const Draggable = ({
       }}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
+      onLoad={getHeightAndWidth}
     >
       {children}
     </animated.div>

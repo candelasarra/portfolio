@@ -15,7 +15,7 @@ import {
 } from 'react-spring';
 import { useInterval } from '../Hooks/Hooks';
 import { ReactComponent as BlobEleven } from '../images/BlobEleven.svg';
-import Draggable from '../../logic/useMousePosition';
+import Draggable from '../../logic/Draggable';
 const useStyles = makeStyles({
   HeaderButtonRoot: {
     textTransform: 'none'
