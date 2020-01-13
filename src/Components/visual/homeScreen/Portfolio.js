@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Portfolio = () => {
+  const theme = useTheme();
   const [loaded, setLoaded] = useState(false);
   const width = useWindowWidth();
   const [gridColumn, setGridColumn] = useState(false);
@@ -63,16 +64,13 @@ const Portfolio = () => {
     } else {
       setBlobSize(600);
     }
-    console.log('inside the sue effect', gridColumn);
   }, [width, gridColumn]);
-  console.log(gridColumn);
+
   const classes = useStyles();
   const firstRenderAnimation = useSpring({
     opacity: loaded ? 1 : 0,
     marginTop: loaded ? 0 : -500
   });
-  const theme = useTheme();
-
   const projects = [
     {
       blob: (

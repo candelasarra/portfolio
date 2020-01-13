@@ -3,8 +3,10 @@
   min-height: 80px;
   min-width: 50px;
   display: flex;
+  position: relative;
+  top: 10%;
 }
-.Header-holdsButtonsDiv :hover {
+.Header-holdsButtonsDiv:hover {
   cursor: pointer;
 }
 .Header-mainDiv {
@@ -20,4 +22,18 @@
   flex-direction: column;
   width: min-content;
   text-align: center;
+}
+.st4 {
+  fill: black;
+  stroke: black;
+}
+.st4:hover {
+  fill: #ff353c;
+  stroke: #ff353c;
+}
+.stcand:hover {
+  fill: #ff353c;
+}
+.stcand {
+  fill: black;
 }
