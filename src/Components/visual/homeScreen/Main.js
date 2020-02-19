@@ -53,7 +53,7 @@ const Main = () => {
         <Header onButtonClick={onButtonClick} />
       </div>
       <div className="Main-div">
-        <div className="Main-leftDiv">
+        {/* <div className="Main-leftDiv">
           {leftDivComponent === null ? null : (
             <HSButtons
               label={leftDivComponent}
@@ -61,11 +61,11 @@ const Main = () => {
               onClick={onButtonClick}
             />
           )}
-        </div>
+        </div> */}
         <div className="Main-mainDiv">
           <HomeScreen buttonClicked={buttonClicked} />
         </div>
-        <div className="Main-rightDiv">
+        {/* <div className="Main-rightDiv">
           {rightDivComponent === null ? null : (
             <HSButtons
               label={rightDivComponent}
@@ -73,7 +73,7 @@ const Main = () => {
               onClick={onButtonClick}
             />
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

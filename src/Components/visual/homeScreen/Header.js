@@ -124,7 +124,7 @@ const Header = ({ onButtonClick }) => {
         root: classes.HeaderButtonRoot,
         label: classes.HeaderButtonLabel
       }}
-      size="small"
+      size="large"
     />,
     <HSButtons
       label="About Me"
@@ -134,7 +134,7 @@ const Header = ({ onButtonClick }) => {
         root: classes.HeaderButtonRoot,
         label: classes.HeaderButtonLabel
       }}
-      size="small"
+      size="large"
     />,
     <HSButtons
       label="Contact Me"
@@ -144,7 +144,7 @@ const Header = ({ onButtonClick }) => {
         root: classes.HeaderButtonRoot,
         label: classes.HeaderButtonLabel
       }}
-      size="small"
+      size="large"
     />
   ];
   const trail = useTrail(pageButtons.length, {

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../CSSfiles/Portfolio.css';
 import TheRecipesImage from '../images/TheRecipesImage.png';
+import theDraggableImage from '../images/theDraggableImage.png';
+import TravelPlannerImage from '../images/TravelPlannerImage.png';
 import { ReactComponent as Blob1 } from '../images/blob-shape.svg';
+import { ReactComponent as Blob2 } from '../images/BlobSixx.svg';
+import { ReactComponent as Blob3 } from '../images/Blob12.svg';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Draggable from '../../logic/Draggable';
@@ -16,7 +20,7 @@ import { useWindowWidth } from '../Hooks/Hooks';
 const useStyles = makeStyles(theme => ({
   img: {
     display: 'block',
-    opacity: '0.6',
+    opacity: '0.8',
     maxWidth: '100%'
   },
   GridImage: {
@@ -75,7 +79,7 @@ const Portfolio = () => {
     {
       blob: (
         <Draggable
-          classSelector="blob"
+          classSelector="blob1"
           position="absolute"
           style={{
             width: `${blobSize}px`,
@@ -94,10 +98,60 @@ const Portfolio = () => {
       title: 'Recipes Website To Start With React (CRUD)',
       github: 'https://github.com/candelasarra/recipes',
       link: 'http://candelasrecipes.com',
-      technology: ['React', 'Firebase', 'Material-UI']
+      technology: ['React', 'Firebase', 'Material-UI'],
+      color: '#f443369e'
+    },
+    {
+      blob: (
+        <Draggable
+          classSelector="blob2"
+          position="absolute"
+          style={{
+            width: `${blobSize}px`,
+            height: `${blobSize}px`,
+            top: '-40px',
+            left: '40px'
+          }}
+          identifier="image"
+        >
+          <Blob2 id="blobb" />
+        </Draggable>
+      ),
+      explanation:
+        'InteractJS wrapper component for React.js You can wrap any image (including SVG), text, or component. I am also using React-Spring for hovering effects. It can be adjusted with any of the InteractJS functionality to add drop off zones and anything else.',
+      image: theDraggableImage,
+      title: 'InteractJS Wrapping Component For ReactJS',
+      github: 'https://github.com/candelasarra/Draggable',
+      technology: ['React-Spring', 'React', 'InteractJS'],
+      color: '#f443369e'
+    },
+    {
+      blob: (
+        <Draggable
+          classSelector="blob3"
+          position="absolute"
+          style={{
+            width: `${blobSize}px`,
+            height: `${blobSize}px`,
+            top: '-40px',
+            left: '40px'
+          }}
+          identifier="image"
+        >
+          <Blob3 id="blobb" />
+        </Draggable>
+      ),
+      explanation:
+        "Travel agent application to organize clients' information. Project completed in one day.",
+      image: TravelPlannerImage,
+      title: 'Travel Agent App',
+      github: 'https://github.com/candelasarra/TravelPlanner',
+      link: 'https://candelasarra.github.io/TravelPlanner/',
+      technology: ['React', 'Material UI', 'ApexCharts'],
+      color: '#f443369e'
     }
   ];
-  const projectsRender = projects.map((item, index) => {
+  const projectsRender = projects.reverse().map((item, index) => {
     return (
       <animated.div
         style={{
@@ -114,6 +168,11 @@ const Portfolio = () => {
           key={index}
           xs={12}
           direction={gridColumn ? 'column' : 'row'}
+          style={{
+            marginTop: '60px',
+            paddingBottom: '68px',
+            borderBottom: '1px dashed black'
+          }}
         >
           {item.blob}
           <Grid
@@ -188,7 +247,7 @@ const Portfolio = () => {
               >
                 <div
                   style={{
-                    backgroundColor: '#ff7067',
+                    backgroundColor: `${item.color}`,
                     width: '100%',
                     position: 'relative',
                     height: '100%'
@@ -220,7 +279,8 @@ const Portfolio = () => {
                   <Chip
                     variant="outlined"
                     label={thing}
-                    style={{ color: 'pink' }}
+                    style={{ color: 'pink', fontSize: 'medium' }}
+                    size="medium"
                   />
                 </Draggable>
               ))}
