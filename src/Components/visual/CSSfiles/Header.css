@@ -24,16 +24,26 @@
   text-align: center;
 }
 .st4 {
-  fill: black;
-  stroke: black;
+  fill: #771b1e;
+  stroke: #771b1e;
 }
 .st4:hover {
   fill: #ff353c;
   stroke: #ff353c;
 }
+.on4 {
+  fill: #ff353c;
+  stroke: #ff353c;
+}
+.oncand {
+  fill: #ff353c;
+}
 .stcand:hover {
   fill: #ff353c;
 }
+.stcand:focus {
+  fill: #ff353c;
+}
 .stcand {
-  fill: black;
+  fill: #771b1e;
 }

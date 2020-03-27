@@ -3,14 +3,17 @@ import HomeScreen from './HomeScreen';
 import { useButtonClicked } from '../Hooks/Hooks';
 import '../CSSfiles/Main.css';
 import Header from './Header';
-import HSButtons from './HSButtons';
+import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
+import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+import { Fab } from '@material-ui/core';
 
 const Main = () => {
-  const { onButtonClick, buttonClicked } = useButtonClicked();
+  const { onButtonClick, buttonClicked } = useButtonClicked('Portfolio');
   const [obj, setObject] = useState(null);
   useEffect(() => {
     const headerValues = ['Portfolio', 'AboutMe', 'ContactMe'];
     const obj = {};
+
     //creates object with left and right values of each in array
     const sidesValue = arr => {
       arr.map((value, index) => {
@@ -35,6 +38,7 @@ const Main = () => {
     sidesValue(headerValues);
     setObject(obj);
   }, []);
+
   const rightDivComponent =
     buttonClicked && obj ? obj[buttonClicked].right : null;
   const leftDivComponent =
@@ -46,34 +50,62 @@ const Main = () => {
         display: 'flex',
         flexDirection: 'column',
         overflowX: 'hidden',
-        background: '#212121'
+        background: 'rgb(16, 16, 16)'
       }}
     >
       <div className="Main-header">
         <Header onButtonClick={onButtonClick} />
       </div>
       <div className="Main-div">
-        {/* <div className="Main-leftDiv">
+        <div className="Main-leftDiv">
           {leftDivComponent === null ? null : (
-            <HSButtons
-              label={leftDivComponent}
-              value={leftDivComponent}
+            <Fab
+              size="small"
+              color="primary"
               onClick={onButtonClick}
-            />
+              value={leftDivComponent}
+              style={{
+                margin: 0,
+                top: 'auto',
+                left: 20,
+                bottom: 20,
+                right: 'auto',
+                position: 'fixed',
+                zIndex: 5000,
+                boxShadow: 'unset'
+              }}
+              disableRipple={true}
+            >
+              <ArrowBackIosRoundedIcon />
+            </Fab>
           )}
-        </div> */}
+        </div>
         <div className="Main-mainDiv">
           <HomeScreen buttonClicked={buttonClicked} />
         </div>
-        {/* <div className="Main-rightDiv">
+        <div className="Main-rightDiv">
           {rightDivComponent === null ? null : (
-            <HSButtons
-              label={rightDivComponent}
-              value={rightDivComponent}
+            <Fab
+              size="small"
+              color="primary"
               onClick={onButtonClick}
-            />
+              value={rightDivComponent}
+              style={{
+                margin: 0,
+                top: 'auto',
+                right: 20,
+                bottom: 20,
+                left: 'auto',
+                position: 'fixed',
+                zIndex: 5000,
+                boxShadow: 'unset'
+              }}
+              disableRipple={true}
+            >
+              <ArrowForwardIosRoundedIcon />
+            </Fab>
           )}
-        </div> */}
+        </div>
       </div>
     </div>
   );

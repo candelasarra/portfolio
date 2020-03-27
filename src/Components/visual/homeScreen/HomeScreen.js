@@ -14,7 +14,6 @@ const HomeScreen = ({ buttonClicked }) => {
     else {
       history.push('/Portfolio');
     }
-    console.log('use effect in hs ');
   }, [buttonClicked, history]);
   return (
     <div className="HomeScreen-holderDiv">

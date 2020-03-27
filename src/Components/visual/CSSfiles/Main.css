@@ -1,7 +1,6 @@
 .Main-div {
   display: flex;
   width: auto;
-  background: #212121;
   justify-content: center;
 }
 .Main-leftDiv {
@@ -30,6 +29,5 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background-color: #484848;
   position: relative;
 }

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import HSButtons from './HSButtons';
 import '../CSSfiles/Header.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,6 @@ import {
 } from 'react-spring';
 import { useInterval } from '../Hooks/Hooks';
 import { ReactComponent as BlobEleven } from '../images/BlobEleven.svg';
-import Draggable from '../../logic/Draggable';
 const useStyles = makeStyles({
   HeaderButtonRoot: {
     textTransform: 'none'
@@ -36,7 +35,28 @@ const Header = ({ onButtonClick }) => {
     setBlobState,
     ref
   } = useInterval(0);
+  useEffect(() => {
+    const arrayElementsSa = document.querySelectorAll('#sarrab');
+    const arrayElementsCa = document.querySelectorAll('#cand');
 
+    arrayElementsSa.forEach(element => {
+      console.log(element);
+      return element.addEventListener('click', () =>
+        changeClass(element, 'st4', 'on4')
+      );
+    });
+    arrayElementsCa.forEach(element => {
+      console.log(element);
+      return element.addEventListener('click', () =>
+        changeClass(element, 'stcand', 'oncand')
+      );
+    });
+  }, []);
+  function changeClass(element, old, newer) {
+    element.className.baseVal === newer
+      ? (element.className.baseVal = old)
+      : (element.className.baseVal = newer);
+  }
   const Sref = useRef();
   const [Sprops, setS] = useSpring(() => ({
     from: {
@@ -158,6 +178,7 @@ const Header = ({ onButtonClick }) => {
       width: 0
     }
   });
+
   return (
     <div className="Header-mainDiv">
       <div className="Header-LogosDiv">
