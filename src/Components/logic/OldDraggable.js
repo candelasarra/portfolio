@@ -18,8 +18,6 @@ const OldDraggable = ({ style, children }) => {
         const ratioWidth =
           (window.innerWidth * left) / oldWidthOfScreen.current;
         const ratioHeight = window.innerHeight / oldHeightOfScreen.current;
-
-        console.log('ratioHeight: ', ratioHeight, 'ratioWidt: ', ratioWidth);
         setLeft(
           state => (window.innerWidth * state) / oldWidthOfScreen.current
         );
@@ -29,7 +27,6 @@ const OldDraggable = ({ style, children }) => {
           x: originalCenterPos.current.x * ratioWidth,
           y: originalCenterPos.current.y * ratioHeight
         };
-        console.log(oldWidthOfScreen, window.innerWidth);
       }
     }
     return () => window.removeEventListener('resize', handleResize);
@@ -43,11 +40,8 @@ const OldDraggable = ({ style, children }) => {
       height
     } = e.currentTarget.childNodes[0].getBoundingClientRect();
     const { pageX, pageY } = e;
-
     centerX.current = width / 2 + x + window.scrollX;
     centerY.current = height / 2 + y + window.scrollY;
-    console.log('x', x);
-    console.log('left', left);
     if (!originalCenterPos.current) {
       currentPos.current = { x: pageX, y: pageY };
       originalCenterPos.current = { x: centerX.current, y: centerY.current };

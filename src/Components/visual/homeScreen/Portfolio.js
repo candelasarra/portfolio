@@ -19,14 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import LaunchIcon from '@material-ui/icons/Launch';
 import Chip from '@material-ui/core/Chip';
 import MyImage from './image';
-import {
-  useSpring,
-  animated,
-  useTransition,
-  useChain,
-  useTrail
-} from 'react-spring';
-import { useTheme } from '@material-ui/core/styles';
+import { animated, useTrail } from 'react-spring';
 import Typography from '@material-ui/core/Typography';
 import { useWindowWidth } from '../Hooks/Hooks';
 import { config } from 'react-transition-group';
@@ -126,27 +119,11 @@ const Portfolio = ({ firstLoad }) => {
   }, [width, gridColumn]);
 
   const classes = useStyles();
-  // const firstRenderAnimation = useSpring({
-  //   opacity: loaded ? 1 : 0
-  // });
-  //const [props, set, stop] = useSpring(() => ({ opacity: 1, delay: 5000 }));
-
-  //set({ opacity: loadedImages ? 1 : 0 });
-
   const blobStyle = {
     width: `${blobSize}px`,
     height: `${blobSize}px`,
     left: '40px'
   };
-  // console.log(firstLoad.current);
-
-  // const firstRenderAnimation = useSpring({
-  //   from: { opacity: 0, height: 0 },
-  //   to: loadedImages ? { opacity: 1 } : { opacity: 0 },
-  //   delay: firstLoad.current === 1 ? 5000 : 0,
-  //   config: config.slow
-  // });
-
   const projects = useMemo(() => {
     return [
       {
@@ -268,41 +245,20 @@ const Portfolio = ({ firstLoad }) => {
     from: { opacity: 0, x: 20, height: 0 },
     delay: firstLoad.current === 1 ? 2000 : 500
   });
-  // const transRef = useRef();
-  // const transitions = useTransition(projects, item => item.title, {
-  //   ref: transRef.current,
-  //   unique: true,
-  //   trail: 400 / projects.length,
-  //   from: { opacity: 0.5, transform: 'scale(0)' },
-  //   enter: { opacity: 1, transform: 'scale(1)' },
-  //   leave: { opacity: 0.5, transform: 'scale(0)' }
-  // });
-  // console.log(transitions);
-  // useChain(
-  //   [{ current: springRef.current }, { current: transRef.current }],
-  //   [0, 1]
-  // );
   const [links, setLinks] = useState({});
 
   function onLoad(feedItem) {
-    console.log('in onload');
     if (!links.feedItem) {
       setLinks({ ...links, [feedItem]: feedItem });
     }
     setLoadedItems(loadedItems => [...loadedItems, feedItem]);
   }
   useEffect(() => {
-    console.log('in use effect that checks obj keys');
     let objKeys = Object.keys(links);
-    console.log(objKeys);
     if (objKeys.length === projects.length) {
       setLoadedImages(true);
-      console.log('setting on loaded to true');
     }
   }, [links, projects.length]);
-  console.log(loadedImages);
-  console.log(links);
-  console.log(loadedItems);
   return (
     // <animated.div style={firstRenderAnimation}>
     <div>
@@ -490,27 +446,6 @@ const Portfolio = ({ firstLoad }) => {
             })
           : loaded && (
               <div className={classes.root}>
-                {/* <Skeleton
-                  style={{ backgroundColor: '#27212140', margin: 20 }}
-                />
-                <Skeleton
-                  style={{ backgroundColor: '#27212140', margin: 20 }}
-                />
-                <Skeleton
-                  style={{ backgroundColor: '#27212140', margin: 20 }}
-                />
-                <Skeleton
-                  style={{ backgroundColor: '#27212140', margin: 20 }}
-                />
-                <Skeleton
-                  style={{ backgroundColor: '#27212140', margin: 20 }}
-                />
-                <Skeleton
-                  style={{ backgroundColor: '#27212140', margin: 20 }}
-                />
-                <Skeleton
-                  style={{ backgroundColor: '#27212140', margin: 20 }}
-                /> */}
                 <Skeleton
                   variant="circle"
                   width={100}

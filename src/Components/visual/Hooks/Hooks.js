@@ -7,7 +7,6 @@ export function useBiggestZIndex(initialVal) {
     zIndex,
     newZIndex: () => {
       zIndex.current = zIndex.current + 1;
-      console.log(zIndex);
     }
   };
 }
@@ -18,7 +17,6 @@ export function useButtonClicked(initialState) {
   return {
     buttonClicked,
     onButtonClick: e => {
-      console.log(buttonClicked);
       setButtonClicked(e.currentTarget.value);
     }
   };

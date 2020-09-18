@@ -11,7 +11,6 @@ const HomeScreen = ({ buttonClicked, firstLoad }) => {
 
   useEffect(() => {
     if (buttonClicked !== undefined) {
-      console.log('hi here');
       history.push('/' + buttonClicked);
     } else {
       history.push('/Portfolio');

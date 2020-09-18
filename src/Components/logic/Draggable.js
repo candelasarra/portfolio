@@ -44,9 +44,7 @@ const Draggable = ({
         // call this function on every dragmove event
         onmove: dragMoveListener,
         // call this function on every dragend event
-        onend: function() {
-          console.log('end');
-        }
+        onend: function() {}
       });
       if (identifier === 'image') {
         interact('.' + classSelector)
