@@ -221,7 +221,7 @@ const Portfolio = ({ firstLoad }) => {
         image: cherryChronicles,
         title: 'Cherry Chronicles, Plant Based Recipes',
         github: 'https://github.com/candelasarra/recipesBlog',
-        link: 'http://candelasrecipes.com',
+        link: 'http://cherrychronicles.com',
         technology: ['Gatsby', 'Contentful', 'Material-UI', 'Netlify', 'CSS'],
         color: '#f443369e'
       }
