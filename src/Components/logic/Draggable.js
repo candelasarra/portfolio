@@ -77,11 +77,11 @@ const Draggable = ({
 
             let offsetHeight = ref.current.offsetHeight;
             // update the element's style
-            console.log(ratioRef.current, ref);
+
             ref.current.style.height =
               event.rect.width * ratioRef.current + 'px';
             ref.current.style.width = event.rect.width + 'px';
-            console.log(event.rect.width, event.rect.height);
+
             offsetHeight -= ref.current.offsetHeight;
             if (event.edges.bottom) {
               offsetHeight = 0;
@@ -118,7 +118,6 @@ const Draggable = ({
   }
 
   function dragStartListener(event) {
-    console.log(Array.from(document.querySelectorAll('body *')));
     const maxZ = Array.from(document.querySelectorAll('body *'))
       .map(a => parseFloat(window.getComputedStyle(a).zIndex))
       .filter(a => !isNaN(a))

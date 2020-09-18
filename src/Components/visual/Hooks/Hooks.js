@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export function useBiggestZIndex(initialVal) {
   const zIndex = useRef(initialVal);

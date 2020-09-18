@@ -40,13 +40,11 @@ const Header = ({ onButtonClick }) => {
     const arrayElementsCa = document.querySelectorAll('#cand');
 
     arrayElementsSa.forEach(element => {
-      console.log(element);
       return element.addEventListener('click', () =>
         changeClass(element, 'st4', 'on4')
       );
     });
     arrayElementsCa.forEach(element => {
-      console.log(element);
       return element.addEventListener('click', () =>
         changeClass(element, 'stcand', 'oncand')
       );

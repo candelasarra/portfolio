@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import HomeScreen from './HomeScreen';
 import { useButtonClicked } from '../Hooks/Hooks';
 import '../CSSfiles/Main.css';
@@ -10,6 +10,7 @@ import { Fab } from '@material-ui/core';
 const Main = () => {
   const { onButtonClick, buttonClicked } = useButtonClicked('Portfolio');
   const [obj, setObject] = useState(null);
+  const firstLoad = useRef(0);
   useEffect(() => {
     const headerValues = ['Portfolio', 'AboutMe', 'ContactMe'];
     const obj = {};
@@ -38,6 +39,16 @@ const Main = () => {
     sidesValue(headerValues);
     setObject(obj);
   }, []);
+
+  useEffect(() => {
+    if (buttonClicked === 'Portfolio') {
+      if (firstLoad.current === 0) {
+        firstLoad.current = 1;
+      } else if (firstLoad.current === 1) {
+        firstLoad.current = 2;
+      }
+    }
+  }, [buttonClicked]);
 
   const rightDivComponent =
     buttonClicked && obj ? obj[buttonClicked].right : null;
@@ -81,7 +92,7 @@ const Main = () => {
           )}
         </div>
         <div className="Main-mainDiv">
-          <HomeScreen buttonClicked={buttonClicked} />
+          <HomeScreen buttonClicked={buttonClicked} firstLoad={firstLoad} />
         </div>
         <div className="Main-rightDiv">
           {rightDivComponent === null ? null : (

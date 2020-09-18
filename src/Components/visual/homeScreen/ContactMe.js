@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import Draggable from '../../logic/Draggable';
 
 const ContactMe = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.scrollTop = 0;
+  }, []);
   return (
     <Draggable
       classSelector="contactMeText"
       identifier="text"
       position="relative"
-      style={{ color: 'white', width: 'max-content' }}
+      style={{ color: 'white', width: '80%', margin: 'auto' }}
     >
       <Typography variant="body1">
         Think we could create something together? Feel free to{' '}

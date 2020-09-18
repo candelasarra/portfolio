@@ -6,19 +6,24 @@ import AboutMe from './AboutMe';
 import { Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
-const HomeScreen = ({ buttonClicked }) => {
+const HomeScreen = ({ buttonClicked, firstLoad }) => {
   let history = useHistory();
 
   useEffect(() => {
-    if (buttonClicked !== undefined) history.push('/' + buttonClicked);
-    else {
+    if (buttonClicked !== undefined) {
+      console.log('hi here');
+      history.push('/' + buttonClicked);
+    } else {
       history.push('/Portfolio');
     }
   }, [buttonClicked, history]);
   return (
     <div className="HomeScreen-holderDiv">
       <div className="HomeScreen-ToRenderComponent">
-        <Route path="/Portfolio" component={Portfolio} />
+        <Route
+          path="/Portfolio"
+          component={() => <Portfolio firstLoad={firstLoad} />}
+        />
         <Route path="/AboutMe" component={AboutMe} />
         <Route path="/ContactMe" component={ContactMe} />
       </div>
